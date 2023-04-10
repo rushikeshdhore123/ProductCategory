@@ -1,0 +1,26 @@
+﻿@model Master_With_CURD_Operations.Models.Category
+
+@{
+    ViewBag.Title = "Save";
+}
+
+@using (Html.BeginForm())
+{
+    <br />
+    <br />
+    <table>
+        <tr>
+            <td>@Html.LabelFor(m => m.CategoryID)</td>
+            <td>@Html.EditorFor(m => m.CategoryID)</td>
+
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.CategoryName)</td>
+            <td>@Html.EditorFor(m => m.CategoryName)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Save" /></td>
+        </tr>
+    </table>
+}
+

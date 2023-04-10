@@ -1,0 +1,22 @@
+﻿@model Master_With_CURD_Operations.Models.Product
+@{
+    ViewBag.Title = "Update";
+}
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>@Html.LabelFor(m => m.ProductID)</td>
+            <td>@Html.TextBoxFor(m => m.ProductID)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ProductName)</td>
+            <td>@Html.TextBoxFor(m => m.ProductName)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Update" /></td>
+        </tr>
+    </table>
+}
+

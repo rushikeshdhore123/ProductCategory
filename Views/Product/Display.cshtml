@@ -1,0 +1,47 @@
+﻿@model Master_With_CURD_Operations.Models.Product
+@using System.Data;
+<style>
+    .table {
+        margin: 2px;
+        padding: 2px;
+        text-align: center;
+    }
+    .th{
+        text-align: center;
+    }
+</style>
+
+
+@{
+    DataTable dt = (DataTable)ViewData["Data"];
+}
+
+@using (Html.BeginForm())
+{
+    <table class="table" border="1"
+           cellspacing="10"
+           cellpadding="10">
+        <tr>
+            <th class="th">Product ID</th>
+            <th class="th">Product Name</th>
+        </tr>
+        @for(int i=0; i<=dt.Rows.Count;i++)
+        {
+            <tr>
+                <td >@dt.Rows[i]["ProductID"]</td>
+                <td>@dt.Rows[i]["ProductName"]</td>
+
+                <td>
+                    <a href="@Url.Action("Delete","Product",new {@ProductID = dt.Rows[i]["ProductID"] }))">Delete</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Update","Product",new {@ProductID = dt.Rows[i]["ProductID"], @ProductName = dt.Rows[0]["ProductName"], @cid = dt.Rows[0]["CategoryID"] })">Edit</a>
+
+                </td>
+            </tr>
+        }
+    </table>
+
+}
+
+
