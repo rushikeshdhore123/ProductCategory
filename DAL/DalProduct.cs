@@ -67,7 +67,23 @@ namespace Master_With_CURD_Operations.DAL
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["abc"].ToString()))
             {
 
-                using (SqlDataAdapter da = new SqlDataAdapter("Select * from Products", con))
+                using (SqlDataAdapter da = new SqlDataAdapter("Select * from Products ", con))
+                {
+                    using (DataTable dt = new DataTable())
+                    {
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+
+            }
+        }
+        public DataTable DisplayProductList()
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["abc"].ToString()))
+            {
+
+                using (SqlDataAdapter da = new SqlDataAdapter("Select P.ProductID, P.ProductName, P.CategoryID, C.CategoryName from Products P inner join Category C on P.CategoryID = C.CategoryID; ", con))
                 {
                     using (DataTable dt = new DataTable())
                     {
