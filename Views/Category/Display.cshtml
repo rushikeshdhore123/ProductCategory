@@ -1,47 +1,70 @@
 ﻿@model Master_With_CURD_Operations.Models.Category
 @using System.Data;
+
 <style>
-        .table{
-            padding: 2px;
-            margin: 2px;
-            text-align: center;
-        }
-    .th {
+    .table {
+        text-align: center;
+    }
+
+    th, td {
         text-align: center;
     }
 </style>
 
 @{
     DataTable dt = (DataTable)ViewData["Data"];
-}
+ }
+    
 
 @using (Html.BeginForm())
 {
-    <table class="table" border="1" align="center">
-        <tr>
-            <th class="th">Category ID</th>
-            <th class="th">Category Name</th>
-        </tr>
-        @for(int i=0;i<dt.Rows.Count;i++)
-        {
+<table class="table" border="1" align="center">
+    <tr>
+        <th>Category ID</th>
+        <th>Category Name</th>
+    </tr>
+
+    @for (int i = 0; i < dt.Rows.Count; i++)
+      {
             <tr>
-                <td>@dt.Rows[i]["CategoryID"]</td>
-                <td>@dt.Rows[i]["CategoryName"]</td>
-                
+                <td> @dt.Rows[i]["CategoryID"] </td>
+                <td> @dt.Rows[i]["CategoryName"] </td>
                 <td>
-                    <a href="@Url.Action("Delete","Category", new { @CategoryID = dt.Rows[i]["CategoryID"] })">Delete</a>
+                     <a href = "@Url.Action("Delete", "Category", new { CategoryID = dt.Rows[i]["CategoryID"] })" > Delete </a>
                 </td>
-                
                 <td>
-                    <a href="@Url.Action("Update","Category", new { @CategoryID = dt.Rows[i]["CategoryID"], @CategoryName = dt.Rows[i]["CategoryName"] })">Edit</a>
+                     <a href = "@Url.Action("Update", "Category", new { CategoryID = dt.Rows[i]["CategoryID"], CategoryName = dt.Rows[i]["CategoryName"] })" > Edit </a>
+                </td>
 
-                </td>
             </tr>
-        }
+     }
+
     </table>
-    
+}    
+
+
+@{ 
+    int currentPage =(int) ViewBag.page;
+    int totalPages = (int)ViewBag.totalPages;
+    int nextPage = currentPage + 1;
+    int previousPage = currentPage - 1;
+    bool isFirstPage = currentPage == 1;
+    bool isLastPage = currentPage == totalPages;
+<div>
+    <span>Showing page @currentPage of @totalPages</span>
+</div>
+
+<div>
+
+        @if (!isFirstPage)
+        {
+            <a href="@Url.Action("Display","Category",new { currentPage=@previousPage})"><input type="button" value="Previous" /> </a>
+
+        }
+        @if (!isLastPage)
+        {
+            <a href="@Url.Action("Display","Category", new { currentPage=@nextPage})"><input type="button" value="Next" /> </a>
+        }
+    </div>
 }
-
-
-
 

@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using Master_With_CURD_Operations.Models;
-using Master_With_CURD_Operations.DAL;
 
 namespace Master_With_CURD_Operations.Controllers
 {
@@ -43,16 +42,42 @@ namespace Master_With_CURD_Operations.Controllers
 
         }
         [HttpGet]
-        public ActionResult Display()
+        public ActionResult Display(int? currentPage)
         {
-            DataTable dt = product.Display();
+
+            int page = 1;
+            int pageSize = 5;
+
+            if (currentPage > 1)
+                page = (int)currentPage;
+
+            int totalRecords = product.CountTotalRecords();
+            int totalPages = totalRecords / pageSize;
+
+            ViewBag.page = page;
+            ViewBag.totalPages = totalPages + 1;
+
+            DataTable dt = product.Display(page);
             ViewData["Data"] = dt;
             return View();
         }
-        public ActionResult DisplayProductList(Product p)
+        public ActionResult DisplayProductList(int? currentPage)
         {
-            DataTable dt = product.DisplayProductList();
+            int page = 1;
+            int pageSize = 5;
+
+            if (currentPage > 1)
+                page = (int)currentPage;
+
+            //total records in product tables
+            int totalRecords = product.CountTotalRecords();
+            ViewBag.page = page;
+            //to find total pages we require total records
+            ViewBag.totalPages = (totalRecords/pageSize)+1;
+           
+            DataTable dt = product.DisplayProductList(page);
             ViewData["Data"] = dt;
+            
             return View();
         }
     }

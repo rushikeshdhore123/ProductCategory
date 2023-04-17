@@ -4,11 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Master_With_CURD_Operations.Models;
-using System.Data.SqlClient;
-using System.Configuration;
 using System.Data;
-using Master_With_CURD_Operations.DAL;
-
 
 namespace Master_With_CURD_Operations.Controllers
 {
@@ -44,15 +40,33 @@ namespace Master_With_CURD_Operations.Controllers
         {
             category.Delete(c);
             return RedirectToAction("Display");
-
         }
+
         [HttpGet]
-        public ActionResult Display()
-        {
-            DataTable dt = category.Display();
+        public ActionResult Display(int? currentPage)
+        { 
+            int page = 1;
+            int pageSize = 5;
+            
+            if (currentPage>1)
+                page = (int)currentPage;
+
+            int totalRecords = category.CountTotalRecords();
+            int totalPages = totalRecords / pageSize;
+    
+            ViewBag.page = page;
+            ViewBag.totalPages = totalPages+1;
+
+            DataTable dt = category.Display(page);
             ViewData["Data"] = dt;
+
             return View();
         }
 
     }
 }
+            
+
+        
+
+

@@ -3,20 +3,32 @@
     ViewBag.Title = "Update";
 }
 
+<style>
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
 @using (Html.BeginForm())
 {
-    <table>
-        <tr>
-            <td>@Html.LabelFor(m => m.ProductID)</td>
-            <td>@Html.TextBoxFor(m => m.ProductID)</td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => m.ProductName)</td>
-            <td>@Html.TextBoxFor(m => m.ProductName)</td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Update" /></td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <td>@Html.LabelFor(m => m.ProductID)</td>
+        <td>@Html.TextBoxFor(m => m.ProductID)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.ProductName)</td>
+        <td>@Html.TextBoxFor(m => m.ProductName)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.CategoryID)</td>
+        <td>@Html.TextBoxFor(m => m.CategoryID)</td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Update" /></td>
+    </tr>
+</table>
 }
 

@@ -7,14 +7,12 @@
 
 <style>
     .table {
-        margin: 2px;
-        padding: 2px;
         text-align: center;
     }
-
-    .th {
+    th, td {
         text-align: center;
     }
+    
 </style>
 
 
@@ -28,10 +26,10 @@
            cellspacing="10"
            cellpadding="10">
         <tr>
-            <th class="th">Product ID</th>
-            <th class="th">Product Name</th>
-            <th class="th">Category ID</th>
-            <th class="th">Category Name</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Category ID</th>
+            <th>Category Name</th>
         </tr>
         @for (int i = 0; i < dt.Rows.Count; i++)
         {
@@ -45,5 +43,31 @@
     </table>
 
 }
+
+@{
+    int currentPage = (int)ViewBag.page;
+    int totalPages = (int)ViewBag.totalPages;
+    int nextPage = currentPage + 1;
+    int previousPage = currentPage - 1;
+    bool isFirstPage = currentPage == 1;
+    bool isLastPage = currentPage == totalPages;
+}
+
+<div>
+    <span>Showing page @currentPage of @totalPages</span>
+</div>
+
+<div>
+    @if (!isFirstPage)
+    {
+        <a href="@Url.Action("Display","Product",new { currentPage=@previousPage})"><input type="button" value="Previous" /></a>
+    }
+    @if (!isLastPage)
+    {
+        <a href="@Url.Action("Display","Product",new { currentPage=@nextPage})"><input type="button" value="Next" /></a>
+    }
+
+</div>
+
 
 
